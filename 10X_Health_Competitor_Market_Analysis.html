@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10X Health — Amazon Competitor Market Analysis</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --bg3: #1a1a26;
+    --border: #2a2a40;
+    --accent: #e8132a;
+    --accent2: #0070f3;
+    --accent3: #f59e0b;
+    --accent4: #10b981;
+    --text: #e8e8f0;
+    --text2: #9999bb;
+    --text3: #6666aa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.6; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
+  nav a { color: var(--text2); text-decoration: none; padding: 14px 14px; white-space: nowrap; font-size: 12px; font-weight: 500; border-bottom: 2px solid transparent; transition: all .2s; }
+  nav a:hover, nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-brand { color: var(--text); font-weight: 700; font-size: 15px; padding: 14px 14px 14px 0; margin-right: 16px; border-right: 1px solid var(--border); white-space: nowrap; }
+
+  /* LAYOUT */
+  .container { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
+  section { margin-bottom: 64px; }
+  h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+  h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  h2 .badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px; background: var(--accent); color: #fff; }
+  h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+  p { color: var(--text2); margin-bottom: 12px; }
+  .subtitle { color: var(--text2); font-size: 15px; margin-bottom: 32px; }
+
+  /* CARDS */
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-grid { display: grid; gap: 16px; }
+  .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card-grid-5 { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 900px) { .card-grid-3, .card-grid-4, .card-grid-5 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .card-grid-2, .card-grid-3, .card-grid-4, .card-grid-5 { grid-template-columns: 1fr; } }
+
+  /* METRIC CARDS */
+  .metric { text-align: center; }
+  .metric-value { font-size: 28px; font-weight: 800; line-height: 1.2; }
+  .metric-label { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: .6px; margin-top: 4px; }
+  .metric-sub { font-size: 12px; color: var(--text2); margin-top: 4px; }
+  .red { color: var(--accent); }
+  .blue { color: var(--accent2); }
+  .yellow { color: var(--accent3); }
+  .green { color: var(--accent4); }
+
+  /* TABLES */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { background: var(--bg3); color: var(--text2); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; padding: 12px 14px; text-align: left; white-space: nowrap; }
+  tbody td { padding: 11px 14px; border-top: 1px solid var(--border); color: var(--text); font-size: 13px; vertical-align: top; }
+  tbody tr:hover td { background: var(--bg3); }
+  .rank-badge { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: var(--bg3); text-align: center; line-height: 24px; font-size: 11px; font-weight: 700; }
+
+  /* PROGRESS / BAR */
+  .bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .bar-label { width: 160px; font-size: 12px; flex-shrink: 0; }
+  .bar-track { flex: 1; background: var(--bg3); border-radius: 4px; height: 8px; overflow: hidden; }
+  .bar-fill { height: 8px; border-radius: 4px; }
+  .bar-val { width: 60px; font-size: 12px; color: var(--text2); text-align: right; flex-shrink: 0; }
+
+  /* TAGS / PILLS */
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin: 2px; }
+  .pill-red { background: rgba(232,19,42,.15); color: var(--accent); border: 1px solid rgba(232,19,42,.3); }
+  .pill-green { background: rgba(16,185,129,.15); color: var(--accent4); border: 1px solid rgba(16,185,129,.3); }
+  .pill-blue { background: rgba(0,112,243,.15); color: var(--accent2); border: 1px solid rgba(0,112,243,.3); }
+  .pill-yellow { background: rgba(245,158,11,.15); color: var(--accent3); border: 1px solid rgba(245,158,11,.3); }
+  .pill-gray { background: rgba(102,102,170,.15); color: var(--text2); border: 1px solid var(--border); }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, var(--bg2) 0%, rgba(232,19,42,.08) 100%); border: 1px solid rgba(232,19,42,.2); border-radius: 16px; padding: 40px; margin-bottom: 48px; }
+  .hero h1 { font-size: 36px; }
+  .hero-meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .hero-meta-item { font-size: 12px; color: var(--text3); }
+  .hero-meta-item span { color: var(--text2); }
+
+  /* ALERT BOXES */
+  .alert { border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; font-size: 13px; }
+  .alert-red { background: rgba(232,19,42,.1); border: 1px solid rgba(232,19,42,.3); color: #ff6b7a; }
+  .alert-green { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.3); color: #34d399; }
+  .alert-yellow { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.3); color: #fbbf24; }
+  .alert-blue { background: rgba(0,112,243,.1); border: 1px solid rgba(0,112,243,.3); color: #60a5fa; }
+
+  /* COMPETITOR SCORECARDS */
+  .comp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative; overflow: hidden; }
+  .comp-card.featured { border-color: var(--accent); }
+  .comp-card .comp-rank { position: absolute; top: 12px; right: 12px; font-size: 10px; color: var(--text3); font-weight: 600; }
+  .comp-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .comp-tagline { font-size: 12px; color: var(--text3); margin-bottom: 16px; }
+  .comp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .comp-stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px; }
+  .comp-stat-val { font-size: 16px; font-weight: 700; }
+
+  /* KEYWORD TABLE */
+  .kw-rank { font-weight: 700; font-size: 15px; }
+  .kw-vol { color: var(--accent2); }
+  .kw-trend-up { color: var(--accent4); }
+  .kw-trend-down { color: var(--accent); }
+
+  /* ACTION ITEMS */
+  .action-item { background: var(--bg2); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 12px 12px 0; padding: 18px 20px; margin-bottom: 12px; }
+  .action-item.priority-high { border-left-color: var(--accent); }
+  .action-item.priority-med { border-left-color: var(--accent3); }
+  .action-item.priority-low { border-left-color: var(--accent4); }
+  .action-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .action-title { font-weight: 700; font-size: 15px; }
+  .action-priority { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .priority-high .action-priority { background: rgba(232,19,42,.2); color: var(--accent); }
+  .priority-med .action-priority { background: rgba(245,158,11,.2); color: var(--accent3); }
+  .priority-low .action-priority { background: rgba(16,185,129,.2); color: var(--accent4); }
+  .action-body { font-size: 13px; color: var(--text2); }
+  .action-body ul { margin-top: 8px; padding-left: 18px; }
+  .action-body li { margin-bottom: 4px; }
+  .action-impact { margin-top: 10px; font-size: 12px; }
+  .action-impact strong { color: var(--accent4); }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* MARKET SHARE DONUT (CSS) */
+  .donut-wrap { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .donut { width: 160px; height: 160px; border-radius: 50%; flex-shrink: 0; background: conic-gradient(
+    var(--accent) 0deg 165.6deg,
+    var(--accent2) 165.6deg 230.4deg,
+    var(--accent3) 230.4deg 274.7deg,
+    var(--accent4) 274.7deg 301.3deg,
+    #7c3aed 301.3deg 322.3deg,
+    #666 322.3deg 360deg
+  ); position: relative; }
+  .donut::after { content: ''; position: absolute; top: 30%; left: 30%; width: 40%; height: 40%; background: var(--bg2); border-radius: 50%; }
+  .donut-legend { flex: 1; min-width: 200px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* STICKY SECTION HEADER */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .section-number { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 10px; flex-shrink: 0; }
+
+  /* PRODUCT GAP MATRIX */
+  .matrix { overflow-x: auto; }
+  .matrix table thead th:first-child { min-width: 200px; }
+  .matrix table thead th { min-width: 120px; text-align: center; }
+  .matrix table tbody td:first-child { font-weight: 600; }
+  .matrix table tbody td { text-align: center; }
+  .check { color: var(--accent4); font-size: 16px; }
+  .cross { color: var(--text3); font-size: 16px; }
+  .partial { color: var(--accent3); font-size: 14px; font-weight: 600; }
+
+  /* TIMESTAMP */
+  .timestamp { font-size: 11px; color: var(--text3); }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">10X Health — Competitive Intel</span>
+  <a href="#executive" class="active">Executive Summary</a>
+  <a href="#market">Market Share</a>
+  <a href="#scorecards">Competitor Scorecards</a>
+  <a href="#triquetra">Triquetra Deep Dive</a>
+  <a href="#keywords">Keyword Gaps</a>
+  <a href="#catalog">Product Gaps</a>
+  <a href="#amazon-gaps">Amazon Program Gaps</a>
+  <a href="#actions">Action Items</a>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero" id="executive">
+    <div class="timestamp">Research Date: July 10, 2026 &nbsp;|&nbsp; Data Sources: Amazon SERP, Helium 10 Xray + Cerebro, Brand Store Analysis</div>
+    <h1 style="margin-top:12px;">10X Health Amazon<br>Competitor Market Analysis</h1>
+    <p class="subtitle" style="margin-top:8px;">Primary focus: Triquetra Health + Top 5 Competitors &nbsp;|&nbsp; Categories: Methylated Supplements, 5-MTHF, Multivitamins, Performance Health</p>
+
+    <div class="alert alert-red" style="margin-top:20px; margin-bottom:0;">
+      <strong>🚨 Top-Line Finding:</strong> Triquetra Health controls <strong>46% of the 5-MTHF Page 1 market</strong> ($1.78M/month) with pricing 27% below 10X Health, 17x more reviews, and is aggressively entering GLP-1/metabolic categories. The total addressable market for 10X Health's core keywords on Amazon Page 1 exceeds <strong>$3.9M/month</strong>.
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">Market Research <span>Complete</span></div>
+      <div class="hero-meta-item">Competitors Analyzed <span>5</span></div>
+      <div class="hero-meta-item">ASINs Tracked <span>20+</span></div>
+      <div class="hero-meta-item">Data Source <span>Live Amazon + H10</span></div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE METRICS -->
+  <section>
+    <div class="card-grid card-grid-4" style="margin-bottom:32px;">
+      <div class="card metric">
+        <div class="metric-value red">$3.9M</div>
+        <div class="metric-label">Monthly Market Size</div>
+        <div class="metric-sub">"5-mthf" Page 1 total</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value blue">18%</div>
+        <div class="metric-label">10X Health Market Share</div>
+        <div class="metric-sub">$688K/month (multivitamin)</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value yellow">46%</div>
+        <div class="metric-label">Triquetra Market Share</div>
+        <div class="metric-sub">$1.78M/month (5-MTHF alone)</div>
+      </div>
+      <div class="card metric">
+        <div class="metric-value green">17×</div>
+        <div class="metric-label">Triquetra Review Advantage</div>
+        <div class="metric-sub">9,168 vs 545 reviews</div>
+      </div>
+    </div>
+
+    <div class="card-grid card-grid-3">
+      <div class="card">
+        <h3>🎯 Core Threat</h3>
+        <p>Triquetra's 5-MTHF at $21.99 is <strong style="color:var(--accent);">27% cheaper</strong> than 10X Health's ($30.00) with 17x more reviews, owning rank #1 organically while 10X ranks #24. Their pricing strategy creates a nearly unassailable review velocity gap.</p>
+      </div>
+      <div class="card">
+        <h3>🔍 Hidden Keyword Strategy</h3>
+        <p>Triquetra doesn't just win on "5-mthf" — they rank <strong style="color:var(--accent3);">#6 for "b12"</strong> (131,597/month searches) and <strong style="color:var(--accent3);">#11 for "vitamin b12"</strong> (131,339/month). They're capturing 260K+ B12 searches with a 5-MTHF product. 10X Health is invisible on these terms.</p>
+      </div>
+      <div class="card">
+        <h3>🚀 Category Expansion</h3>
+        <p>Triquetra just launched <strong style="color:var(--accent4);">SoActive Berberine, Turmeric & Cinnamon</strong> (metabolic health) and <strong>GLP-Activate/GLP-Pro</strong> (GLP-1 pathway). These are trillion-dollar wellness trends. 10X Health has zero presence in metabolic/blood sugar categories.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET SHARE -->
+  <section id="market">
+    <h2><span class="section-number">1</span>Market Share — "5-MTHF" Page 1 <span class="badge">LIVE DATA</span></h2>
+    <p>Total monthly revenue across all Page 1 products for "5-mthf" search: <strong>$3,908,213</strong></p>
+
+    <div class="card" style="margin-bottom:20px;">
+      <div class="donut-wrap">
+        <div class="donut"></div>
+        <div class="donut-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> <strong>Triquetra Health</strong> — 46% — $1,783,564/mo &nbsp;<span class="pill pill-red">Organic Rank #1</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div> <strong>10X Health (Multivitamin)</strong> — 18% — $688,695/mo &nbsp;<span class="pill pill-blue">Organic Rank #24</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div> <strong>Thorne Research</strong> — 12.4% — $482,339/mo &nbsp;<span class="pill pill-yellow">Combined 2 ASINs</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent4)"></div> <strong>Kids Methylfolate (Triquetra)</strong> — 7.4% — $291,105/mo &nbsp;<span class="pill pill-green">Organic Rank #15</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> <strong>Triquetra 1000mcg</strong> — 6.1% — $240,024/mo &nbsp;<span class="pill pill-gray">Organic Rank #2</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#666"></div> Other — 10.1% — $402,486/mo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-yellow">
+      <strong>⚠️ Critical Insight:</strong> 10X Health's $688K/month comes primarily from their <em>Multivitamin</em> product at $55 showing up on the 5-MTHF SERP — NOT from their dedicated 5-MTHF product. Their standalone 5-MTHF ($30, B9 #32) is barely visible while Triquetra's $21.99 product holds #1. 10X is winning on premium positioning, not volume. Triquetra is winning on both.
+    </div>
+
+    <div class="table-wrap" style="margin-top:20px;">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Brand / Product</th>
+            <th>ASIN</th>
+            <th>Price</th>
+            <th>Monthly Revenue</th>
+            <th>Market Share</th>
+            <th>Organic Rank</th>
+            <th>Reviews</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge" style="background:var(--accent);color:#fff;">1</span></td>
+            <td><strong>Triquetra</strong> — 5-MTHF 15mg+B12 Capsule</td>
+            <td style="font-family:monospace;font-size:11px;">B0938NKV1G</td>
+            <td class="green">$21.99</td>
+            <td class="green"><strong>$1,783,564</strong></td>
+            <td><div class="bar-wrap"><div class="bar-track" style="width:120px"><div class="bar-fill" style="width:46%;background:var(--accent)"></div></div> 46%</div></td>
+            <td>#1</td>
+            <td>9,168</td>
+            <td>4.6★</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge" style="background:var(--accent2);color:#fff;">2</span></td>
+            <td><strong>10X Health</strong> — Optimize Methylated Multivitamin</td>
+            <td style="font-family:monospace;font-size:11px;">B0D5SBPDBW</td>
+            <td class="yellow">$55.00</td>
+            <td class="blue"><strong>$688,695</strong></td>
+            <td><div class="bar-wrap"><div class="bar-track" style="width:120px"><div class="bar-fill" style="width:18%;background:var(--accent2)"></div></div> 18%</div></td>
+            <td>#24</td>
+            <td>1,826</td>
+            <td>4.6★</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge">3</span></td>
+            <td><strong>Thorne</strong> — 5-MTHF 1mg (B00FY8IQ7C)</td>
+            <td style="font-family:monospace;font-size:11px;">B00FY8IQ7C</td>
+            <td>$24.00</td>
+            <td>$327,496</td>
+            <td><div class="bar-wrap"><div class="bar-track" style="width:120px"><div class="bar-fill" style="width:8.4%;background:var(--accent3)"></div></div> 8.4%</div></td>
+            <td>#7</td>
+            <td>~2,500</td>
+            <td>4.7★</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge">4</span></td>
+            <td><strong>Triquetra</strong> — Kids Methylfolate+B12</td>
+            <td style="font-family:monospace;font-size:11px;">B0DLCGKQMR</td>
+            <td>$22.95</td>
+            <td>$291,105</td>
+            <td><div class="bar-wrap"><div class="bar-track" style="width:120px"><div class="bar-fill" style="width:7.4%;background:#7c3aed"></div></div> 7.4%</div></td>
+            <td>#15</td>
+            <td>2,427</td>
+            <td>4.7★</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge">5</span></td>
+            <td><strong>Triquetra</strong> — 5-MTHF 1000mcg+B12</td>
+            <td style="font-family:monospace;font-size:11px;">B0DCZTJSL9</td>
+            <td>$17.99</td>
+            <td>$240,024</td>
+            <td><div class="bar-wrap"><div class="bar-track" style="width:120px"><div class="bar-fill" style="width:6.1%;background:#7c3aed"></div></div> 6.1%</div></td>
+            <td>#2</td>
+            <td>3,999</td>
+            <td>4.6★</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge">6</span></td>
+            <td><strong>Thorne</strong> — 5-MTHF 5mg (premium)</td>
+            <td style="font-family:monospace;font-size:11px;">B005BSMVFS</td>
+            <td>$68.00</td>
+            <td>$154,843</td>
+            <td><div class="bar-wrap"><div class="bar-track" style="width:120px"><div class="bar-fill" style="width:4%;background:var(--accent3)"></div></div> 4.0%</div></td>
+            <td>#12</td>
+            <td>~1,200</td>
+            <td>4.6★</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COMPETITOR SCORECARDS -->
+  <section id="scorecards">
+    <h2><span class="section-number">2</span>Competitor Scorecards</h2>
+    <div class="card-grid card-grid-3" style="margin-bottom:20px;">
+
+      <!-- TRIQUETRA -->
+      <div class="comp-card featured" style="grid-column: span 1;">
+        <div class="comp-rank">Threat Level: 🔴 CRITICAL</div>
+        <div class="comp-name red">Triquetra Health</div>
+        <div class="comp-tagline">"Winning Comes Naturally" | Plant-Based, Organic</div>
+        <div class="comp-stats">
+          <div><div class="comp-stat-label">Top ASIN Rev/Mo</div><div class="comp-stat-val green">$1.78M</div></div>
+          <div><div class="comp-stat-label">Review Count</div><div class="comp-stat-val">9,168</div></div>
+          <div><div class="comp-stat-label">Price Point</div><div class="comp-stat-val green">$21.99</div></div>
+          <div><div class="comp-stat-label">H&H Rank</div><div class="comp-stat-val">#253</div></div>
+          <div><div class="comp-stat-label">B9 Category</div><div class="comp-stat-val">#1</div></div>
+          <div><div class="comp-stat-label">Est. Products</div><div class="comp-stat-val">24+</div></div>
+        </div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">Key Products</div>
+        <div>
+          <span class="pill pill-red">5-MTHF 15mg</span>
+          <span class="pill pill-red">BioBeet</span>
+          <span class="pill pill-red">Cranberry</span>
+          <span class="pill pill-yellow">GLP-Activate</span>
+          <span class="pill pill-yellow">Berberine+</span>
+          <span class="pill pill-green">Kids MTHF</span>
+          <span class="pill pill-blue">D3+K2</span>
+          <span class="pill pill-blue">B12 5000mcg</span>
+          <span class="pill pill-gray">Colloidal Silver</span>
+          <span class="pill pill-gray">5-HTP</span>
+          <span class="pill pill-gray">Probiotic</span>
+        </div>
+      </div>
+
+      <!-- THORNE -->
+      <div class="comp-card">
+        <div class="comp-rank">Threat Level: 🟡 HIGH</div>
+        <div class="comp-name yellow">Thorne Research</div>
+        <div class="comp-tagline">"Professional Grade" | Clinical/Practitioner Brand</div>
+        <div class="comp-stats">
+          <div><div class="comp-stat-label">5-MTHF Rev/Mo</div><div class="comp-stat-val yellow">$482K</div></div>
+          <div><div class="comp-stat-label">Positioning</div><div class="comp-stat-val" style="font-size:12px;">Premium Clinical</div></div>
+          <div><div class="comp-stat-label">Price Points</div><div class="comp-stat-val">$24–$68</div></div>
+          <div><div class="comp-stat-label">Organic Rank</div><div class="comp-stat-val">#7 / #12</div></div>
+        </div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">Differentiation</div>
+        <p style="font-size:12px;">NSF Certified, practitioner-recommended, premium pricing. Not competing on price — competing on trust and clinical credibility. Strong Sponsored Brand ads in the 5-MTHF space.</p>
+        <div style="margin-top:8px;">
+          <span class="pill pill-yellow">5-MTHF 1mg</span>
+          <span class="pill pill-yellow">5-MTHF 5mg</span>
+          <span class="pill pill-gray">Broad supplement line</span>
+        </div>
+      </div>
+
+      <!-- LIFE EXTENSION -->
+      <div class="comp-card">
+        <div class="comp-rank">Threat Level: 🟠 MEDIUM</div>
+        <div class="comp-name" style="color:#f97316;">Life Extension</div>
+        <div class="comp-tagline">"Science-Based" | Longevity &amp; Anti-Aging Focus</div>
+        <div class="comp-stats">
+          <div><div class="comp-stat-label">Est. Amazon Rev</div><div class="comp-stat-val" style="color:#f97316;">$150K+/mo</div></div>
+          <div><div class="comp-stat-label">Positioning</div><div class="comp-stat-val" style="font-size:12px;">Longevity Brand</div></div>
+          <div><div class="comp-stat-label">Price Range</div><div class="comp-stat-val">$20–$45</div></div>
+          <div><div class="comp-stat-label">Since</div><div class="comp-stat-val">1980</div></div>
+        </div>
+        <p style="font-size:12px;">Legacy brand with massive catalog. Competes across vitamins, minerals, nootropics, anti-aging. Key on Amazon for the "methylfolate" term. Big established brand with decades of trust.</p>
+        <div style="margin-top:8px;">
+          <span class="pill pill-gray">Folate/B12</span>
+          <span class="pill pill-gray">Anti-Aging</span>
+          <span class="pill pill-gray">Longevity Stack</span>
+        </div>
+      </div>
+
+      <!-- PURE ENCAPSULATIONS -->
+      <div class="comp-card">
+        <div class="comp-rank">Threat Level: 🟠 MEDIUM</div>
+        <div class="comp-name" style="color:#8b5cf6;">Pure Encapsulations</div>
+        <div class="comp-tagline">"Pure. Simple. Premium." | Hypoallergenic</div>
+        <div class="comp-stats">
+          <div><div class="comp-stat-label">Est. Amazon Rev</div><div class="comp-stat-val" style="color:#8b5cf6;">$100K+/mo</div></div>
+          <div><div class="comp-stat-label">Positioning</div><div class="comp-stat-val" style="font-size:12px;">Practitioner/Hypo</div></div>
+          <div><div class="comp-stat-label">Price Points</div><div class="comp-stat-val">$35–$55</div></div>
+          <div><div class="comp-stat-label">Reviews</div><div class="comp-stat-val">1K–3K/ASIN</div></div>
+        </div>
+        <p style="font-size:12px;">Known for ultra-clean formulas without additives. Popular with functional medicine practitioners. Overlaps with 10X Health's "clean" positioning but at higher price. Not an aggressive Amazon advertiser.</p>
+        <div style="margin-top:8px;">
+          <span class="pill pill-gray">Methylfolate</span>
+          <span class="pill pill-gray">Hypo Formula</span>
+          <span class="pill pill-gray">Practitioner</span>
+        </div>
+      </div>
+
+      <!-- METHYL-LIFE / NUTRAHARMONY -->
+      <div class="comp-card">
+        <div class="comp-rank">Threat Level: 🟡 HIGH</div>
+        <div class="comp-name" style="color:#06b6d4;">Methyl-Life / NutraHarmony</div>
+        <div class="comp-tagline">Amazon-Native | MTHFR Community Focus</div>
+        <div class="comp-stats">
+          <div><div class="comp-stat-label">Est. Amazon Rev</div><div class="comp-stat-val" style="color:#06b6d4;">$75K+/mo</div></div>
+          <div><div class="comp-stat-label">Positioning</div><div class="comp-stat-val" style="font-size:12px;">MTHFR Specialist</div></div>
+          <div><div class="comp-stat-label">Price Point</div><div class="comp-stat-val">$50–$85</div></div>
+          <div><div class="comp-stat-label">Reviews</div><div class="comp-stat-val">3,000+</div></div>
+        </div>
+        <p style="font-size:12px;">Amazon-native brand targeting the MTHFR gene mutation community. High-dose methylfolate (15mg) at premium prices ($75-80). Strong organic rankings and community trust. Similar niche as 10X Health.</p>
+        <div style="margin-top:8px;">
+          <span class="pill pill-blue">15mg MTHF</span>
+          <span class="pill pill-blue">MTHFR Support</span>
+          <span class="pill pill-gray">Amazon-Native</span>
+        </div>
+      </div>
+
+      <!-- 10X HEALTH (for comparison) -->
+      <div class="comp-card" style="border-color:var(--accent2);">
+        <div class="comp-rank" style="color:var(--accent2);">📍 10X Health (YOU)</div>
+        <div class="comp-name blue">10X Health System</div>
+        <div class="comp-tagline">"Use What The Stars Use" | Celebrity-Backed Premium</div>
+        <div class="comp-stats">
+          <div><div class="comp-stat-label">Multivitamin Rev/Mo</div><div class="comp-stat-val blue">$688K</div></div>
+          <div><div class="comp-stat-label">5-MTHF Reviews</div><div class="comp-stat-val red">545</div></div>
+          <div><div class="comp-stat-label">Multivitamin Price</div><div class="comp-stat-val yellow">$55.00</div></div>
+          <div><div class="comp-stat-label">5-MTHF Price</div><div class="comp-stat-val yellow">$30.00</div></div>
+          <div><div class="comp-stat-label">H&H (Multivit)</div><div class="comp-stat-val">#3,159</div></div>
+          <div><div class="comp-stat-label">Amazon Products</div><div class="comp-stat-val red">3</div></div>
+        </div>
+        <div>
+          <span class="pill pill-blue">Optimize Multivitamin</span>
+          <span class="pill pill-blue">5-MTHF</span>
+          <span class="pill pill-blue">Children's Gummies</span>
+        </div>
+        <div class="alert alert-red" style="margin-top:12px; font-size:12px; padding:10px 12px;">
+          <strong>Gap:</strong> 3 products on Amazon vs Triquetra's 24+. Premium pricing without the review base to justify it versus volume competitors.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRIQUETRA DEEP DIVE -->
+  <section id="triquetra">
+    <h2><span class="section-number">3</span>Triquetra Health — Deep Dive</h2>
+
+    <div class="alert alert-red" style="margin-bottom:20px;">
+      <strong>Primary Threat.</strong> Triquetra is a direct, dominant competitor in 10X Health's core categories. Their combined estimated Amazon revenue exceeds <strong>$2.8M+/month</strong> based on tracked products. They are #1 in 5-MTHF, #8 in Cranberry Herbal, #10 in Nitric Oxide Boosters, and #1 in Kids Methylation. They are expanding into metabolic health (berberine, GLP-1, blood sugar) with 5 new product launches.
+    </div>
+
+    <h3 style="margin-bottom:16px;">Full Product Catalog with Revenue Data</h3>
+    <div class="table-wrap" style="margin-bottom:28px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>ASIN</th>
+            <th>Price</th>
+            <th>S&amp;S Price</th>
+            <th>30-Day Revenue</th>
+            <th>Units/Mo</th>
+            <th>Reviews</th>
+            <th>Rating</th>
+            <th>H&H Rank</th>
+            <th>Category Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>5-MTHF 15mg + B12 Capsule</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B0938NKV1G</td>
+            <td class="green">$21.99</td>
+            <td class="green">$19.79</td>
+            <td class="green"><strong>$1,783,564</strong></td>
+            <td>82,990</td>
+            <td><strong>9,168</strong></td>
+            <td>4.6★</td>
+            <td>#253</td>
+            <td>Vit B9 #1</td>
+          </tr>
+          <tr>
+            <td><strong>5-MTHF 15mg + B12 Liquid Drop (Berry)</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B0B83PXLXW</td>
+            <td class="green">$21.99</td>
+            <td>—</td>
+            <td class="green"><strong>~$291K*</strong></td>
+            <td>~13K*</td>
+            <td>5,791</td>
+            <td>4.5★</td>
+            <td>#253</td>
+            <td>Vit B9 #1</td>
+          </tr>
+          <tr>
+            <td><strong>5-MTHF 1000mcg + B12 Capsule</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B0DCZTJSL9</td>
+            <td class="green">$17.99</td>
+            <td>—</td>
+            <td><strong>$240,024</strong></td>
+            <td>~13.3K</td>
+            <td>3,999</td>
+            <td>4.6★</td>
+            <td>#3,742</td>
+            <td>Vit B9 #3</td>
+          </tr>
+          <tr>
+            <td><strong>Cranberry Extract (CranEaze)</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B0B47Y837P</td>
+            <td>$31.89</td>
+            <td>—</td>
+            <td><strong>$350,046</strong></td>
+            <td>11,287</td>
+            <td>1,700</td>
+            <td>4.8★</td>
+            <td>#3,908</td>
+            <td>Cranberry #8</td>
+          </tr>
+          <tr>
+            <td><strong>BioBeet (Organic Beetroot)</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B08DP52HKZ</td>
+            <td>$22.50</td>
+            <td>—</td>
+            <td><strong>$152,035</strong></td>
+            <td>6,812</td>
+            <td>3,800</td>
+            <td>4.5★</td>
+            <td>#6,231</td>
+            <td>NO Boosters #10</td>
+          </tr>
+          <tr>
+            <td><strong>Kids L-Methylfolate + B12</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B0DLCGKQMR</td>
+            <td class="green">$22.95</td>
+            <td>—</td>
+            <td><strong>$291,105</strong></td>
+            <td>~12.7K</td>
+            <td>2,427</td>
+            <td>4.7★</td>
+            <td>#1,600</td>
+            <td>Kids Supp. Top 10</td>
+          </tr>
+          <tr>
+            <td><strong>Saw Palmetto + Pumpkin Seed Oil</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B07YN3KNMV</td>
+            <td>$31.97</td>
+            <td>—</td>
+            <td><strong>$163,005</strong></td>
+            <td>5,099</td>
+            <td>1,400</td>
+            <td>4.5★</td>
+            <td>#9,554</td>
+            <td>Saw Palm. #13</td>
+          </tr>
+          <tr>
+            <td><strong>GLP-Activate (GLP-1 Pathway)</strong></td>
+            <td style="font-family:monospace;font-size:11px;">B0CK9S25HM</td>
+            <td>$44.99</td>
+            <td>—</td>
+            <td><strong>$99,447</strong></td>
+            <td>2,211</td>
+            <td>1,800</td>
+            <td>3.7★</td>
+            <td>#18,037</td>
+            <td>Appetite #25</td>
+          </tr>
+          <tr>
+            <td><strong>BioActive Vitamin B12 5000mcg</strong></td>
+            <td>—</td>
+            <td>$23.00</td>
+            <td>—</td>
+            <td><em>~$80K est.</em></td>
+            <td>3K+ units</td>
+            <td>5,386</td>
+            <td>4.5★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Colloidal Silver (Bioactive)</strong></td>
+            <td>—</td>
+            <td>$22.97</td>
+            <td>—</td>
+            <td><em>~$70K est.</em></td>
+            <td>3K+ units</td>
+            <td>7,700</td>
+            <td>4.6★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Plant D3+K2 5000 IU (Organic)</strong></td>
+            <td>—</td>
+            <td>$27.50</td>
+            <td>—</td>
+            <td><em>~$60K est.</em></td>
+            <td>3K+ units</td>
+            <td>2,285</td>
+            <td>4.7★</td>
+            <td>—</td>
+            <td>D3+K2 Top 10</td>
+          </tr>
+          <tr>
+            <td><strong>Organic 5-HTP 200mg</strong></td>
+            <td>—</td>
+            <td>$23.99</td>
+            <td>—</td>
+            <td><em>~$50K est.</em></td>
+            <td>2K+ units</td>
+            <td>1,300</td>
+            <td>4.5★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Plant Magnesium 250mg (Organic)</strong></td>
+            <td>—</td>
+            <td>$26.99</td>
+            <td>—</td>
+            <td><em>~$45K est.</em></td>
+            <td>2K+ units</td>
+            <td>1,000</td>
+            <td>4.6★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr style="opacity:0.7;">
+            <td><strong>SoActive Berberine+ (NEW)</strong></td>
+            <td>—</td>
+            <td>$44.95</td>
+            <td>—</td>
+            <td><em>Early stage</em></td>
+            <td>50+/mo</td>
+            <td>24</td>
+            <td>4.7★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr style="opacity:0.7;">
+            <td><strong>SoActive Turmeric (NEW)</strong></td>
+            <td>—</td>
+            <td>$44.89</td>
+            <td>—</td>
+            <td><em>Early stage</em></td>
+            <td>50+/mo</td>
+            <td>18</td>
+            <td>4.8★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr style="opacity:0.7;">
+            <td><strong>SoActive Cinnamon (NEW)</strong></td>
+            <td>—</td>
+            <td>$43.50</td>
+            <td>—</td>
+            <td><em>Early stage</em></td>
+            <td>50+/mo</td>
+            <td>19</td>
+            <td>4.6★</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--text3);">*Revenue estimates based on H10 Xray data. Some shared parent/child ASIN revenue may overlap. "NEW" products = just launched, revenue not yet significant.</p>
+
+    <div class="card-grid card-grid-2" style="margin-top:24px;">
+      <div class="card">
+        <h3>🏪 Brand Store Architecture</h3>
+        <p>Triquetra uses a sophisticated <strong>23-category "Shop by Concern"</strong> navigation — far beyond what 10X Health offers. This captures buyers searching by health goal rather than product name, dramatically increasing discoverability and cart value.</p>
+        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:4px;">
+          <span class="pill pill-red">Anti-Aging</span><span class="pill pill-red">Blood Pressure</span><span class="pill pill-red">Bone Support</span><span class="pill pill-red">Brain &amp; Cognition</span><span class="pill pill-yellow">Cardiovascular</span><span class="pill pill-yellow">Energy</span><span class="pill pill-yellow">Gut Health</span><span class="pill pill-yellow">Immunity</span><span class="pill pill-green">Inflammation</span><span class="pill pill-green">Liver</span><span class="pill pill-green">Methylation</span><span class="pill pill-blue">Metabolism</span><span class="pill pill-blue">Mens Health</span><span class="pill pill-blue">Hormone Support</span><span class="pill pill-gray">Respiratory</span><span class="pill pill-gray">Stress &amp; Mood</span><span class="pill pill-gray">Skin Support</span><span class="pill pill-gray">Sleep Support</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>👩 Audience Segmentation Strategy</h3>
+        <p>Beyond the concern-based navigation, Triquetra explicitly targets the <strong>"Busy Mom"</strong> segment with a dedicated "Busy Mom Starter Kit" bundle — turning a customer persona into a shoppable collection. They also have explicit <strong>Kids products</strong> (8K+ bought/month) and <strong>Age-specific dosing</strong> formulas. 10X Health has no segmentation beyond adult vs. children.</p>
+        <div style="margin-top:10px;">
+          <span class="pill pill-red">Busy Mom Starter Kit</span>
+          <span class="pill pill-green">Kids Formula (8K units/mo)</span>
+          <span class="pill pill-blue">Adjustable Dosing</span>
+          <span class="pill pill-yellow">MTHFR Community</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYWORD GAPS -->
+  <section id="keywords">
+    <h2><span class="section-number">4</span>Keyword Gap Analysis <span class="badge">CEREBRO DATA</span></h2>
+    <p>Keywords Triquetra (B0938NKV1G) ranks for that 10X Health is NOT visible on:</p>
+
+    <div class="alert alert-blue" style="margin-bottom:20px;">
+      <strong>💡 The B12 Bridge Strategy:</strong> Triquetra's single biggest keyword advantage is ranking <strong>#6 for "b12" (131,397 searches/month)</strong> with their 5-MTHF+B12 product. This means 131K customers per month who search for plain "B12" see Triquetra as their top supplement option. Combined with "vitamin b12" (131,339/month at rank #11), that's <strong>260K+ monthly impressions from the B12 category alone</strong> — where 10X Health has no visibility.
+    </div>
+
+    <div class="table-wrap" style="margin-bottom:24px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword Phrase</th>
+            <th>Monthly Searches</th>
+            <th>Trend</th>
+            <th>PPC Bid</th>
+            <th>Triquetra Organic Rank</th>
+            <th>10X Health Rank</th>
+            <th>Competing Products</th>
+            <th>Opportunity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>b12</strong></td>
+            <td class="kw-vol"><strong>131,397</strong></td>
+            <td class="kw-trend-down">-13%</td>
+            <td>$2.70</td>
+            <td class="kw-rank green">#6</td>
+            <td class="red">Not ranking</td>
+            <td>3,077</td>
+            <td><span class="pill pill-yellow">B12 co-factor upsell</span></td>
+          </tr>
+          <tr>
+            <td><strong>vitamin b12</strong></td>
+            <td class="kw-vol"><strong>131,339</strong></td>
+            <td class="kw-trend-down">-5%</td>
+            <td>$2.56</td>
+            <td class="kw-rank green">#11</td>
+            <td class="red">Not ranking</td>
+            <td>2,813</td>
+            <td><span class="pill pill-yellow">High volume, PPC opportunity</span></td>
+          </tr>
+          <tr>
+            <td><strong>methylfolate</strong></td>
+            <td class="kw-vol"><strong>29,863</strong></td>
+            <td class="kw-trend-down">-3%</td>
+            <td>$3.09</td>
+            <td class="kw-rank green">#2</td>
+            <td class="red">Not ranking top 15</td>
+            <td>833</td>
+            <td><span class="pill pill-red">Core keyword — critical gap</span></td>
+          </tr>
+          <tr>
+            <td><strong>l methylfolate</strong></td>
+            <td class="kw-vol"><strong>12,911</strong></td>
+            <td class="kw-trend-up">+7% ↑</td>
+            <td>$2.96</td>
+            <td class="kw-rank green">#2</td>
+            <td class="red">Not ranking top 15</td>
+            <td>625</td>
+            <td><span class="pill pill-red">Growing — 10X must target</span></td>
+          </tr>
+          <tr>
+            <td><strong>b12 methylcobalamin</strong></td>
+            <td class="kw-vol"><strong>11,134</strong></td>
+            <td class="kw-trend-up">+13% ↑</td>
+            <td>$3.12</td>
+            <td>Rank #29</td>
+            <td class="red">Not visible</td>
+            <td>605</td>
+            <td><span class="pill pill-green">Growing trend, lower competition</span></td>
+          </tr>
+          <tr>
+            <td><strong>triquetra l-methylfolate 5-mthf</strong></td>
+            <td class="kw-vol"><strong>10,178</strong></td>
+            <td class="kw-trend-up">+24% ↑</td>
+            <td>$2.59</td>
+            <td class="kw-rank green">#1 (branded)</td>
+            <td class="red">—</td>
+            <td>545</td>
+            <td><span class="pill pill-gray">Branded — build 10X brand term</span></td>
+          </tr>
+          <tr>
+            <td><strong>folate</strong></td>
+            <td class="kw-vol"><strong>10,836</strong></td>
+            <td class="kw-trend-up">+3%</td>
+            <td>$2.44</td>
+            <td class="kw-rank green">#6</td>
+            <td class="red">Not ranking</td>
+            <td>502</td>
+            <td><span class="pill pill-yellow">Mid-funnel awareness term</span></td>
+          </tr>
+          <tr>
+            <td><strong>l-methylfolate</strong></td>
+            <td class="kw-vol"><strong>10,176</strong></td>
+            <td class="kw-trend-up">+3%</td>
+            <td>$3.24</td>
+            <td class="kw-rank green">#2</td>
+            <td class="red">Not ranking</td>
+            <td>535</td>
+            <td><span class="pill pill-red">Core — same as l methylfolate</span></td>
+          </tr>
+          <tr>
+            <td><strong>folate supplement</strong></td>
+            <td class="kw-vol"><strong>6,178</strong></td>
+            <td class="kw-trend-up">+10% ↑</td>
+            <td>$2.67</td>
+            <td>#15</td>
+            <td class="red">Not ranking</td>
+            <td>305</td>
+            <td><span class="pill pill-green">Growing, lower competition</span></td>
+          </tr>
+          <tr>
+            <td><strong>5-mthf</strong></td>
+            <td class="kw-vol"><strong>4,357</strong></td>
+            <td>+2%</td>
+            <td>$2.85</td>
+            <td class="kw-rank green">#1</td>
+            <td>#24</td>
+            <td>420</td>
+            <td><span class="pill pill-red">Core — 10X ranks too low</span></td>
+          </tr>
+          <tr>
+            <td><strong>methylated multivitamin</strong></td>
+            <td class="kw-vol"><strong>~3,500</strong></td>
+            <td>+5%</td>
+            <td>$3.50</td>
+            <td>Not top 10</td>
+            <td class="green">#3 (multivit)</td>
+            <td>~200</td>
+            <td><span class="pill pill-green">10X's strongest keyword</span></td>
+          </tr>
+          <tr>
+            <td><strong>mthfr supplement</strong></td>
+            <td class="kw-vol"><strong>~2,800</strong></td>
+            <td>+8%</td>
+            <td>$3.20</td>
+            <td>Top 5</td>
+            <td class="red">Not visible</td>
+            <td>~180</td>
+            <td><span class="pill pill-red">High-intent MTHFR community</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <h3>🏆 Keywords 10X Health Wins On</h3>
+        <div class="bar-wrap"><div class="bar-label">methylated multivitamin</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:var(--accent2)"></div></div><div class="bar-val">Rank ~#3</div></div>
+        <div class="bar-wrap"><div class="bar-label">10x health supplements</div><div class="bar-track"><div class="bar-fill" style="width:95%;background:var(--accent2)"></div></div><div class="bar-val">Rank #1</div></div>
+        <div class="bar-wrap"><div class="bar-label">multivitamin for men/women</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--accent2)"></div></div><div class="bar-val">Rank ~#24</div></div>
+        <p style="margin-top:12px;font-size:12px;">10X Health's keyword dominance is almost entirely <strong>brand-searched</strong> and their multivitamin position. They lack presence on the highest-volume methylation and B12 terms.</p>
+      </div>
+      <div class="card">
+        <h3>🚨 Critical Keyword Gaps to Close</h3>
+        <div class="bar-wrap"><div class="bar-label">b12 (131K/mo)</div><div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--accent)"></div></div><div class="bar-val">Not ranked</div></div>
+        <div class="bar-wrap"><div class="bar-label">vitamin b12 (131K/mo)</div><div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--accent)"></div></div><div class="bar-val">Not ranked</div></div>
+        <div class="bar-wrap"><div class="bar-label">methylfolate (30K/mo)</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--accent)"></div></div><div class="bar-val">~Rank 20+</div></div>
+        <div class="bar-wrap"><div class="bar-label">5-mthf (4.4K/mo)</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--accent3)"></div></div><div class="bar-val">Rank #24</div></div>
+        <div class="bar-wrap"><div class="bar-label">mthfr supplement (2.8K/mo)</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--accent)"></div></div><div class="bar-val">Not ranked</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT CATALOG GAPS -->
+  <section id="catalog">
+    <h2><span class="section-number">5</span>Product Catalog Gap Matrix</h2>
+
+    <div class="card-grid card-grid-3" style="margin-bottom:24px;">
+      <div class="card">
+        <h3 class="red">🚨 They Have, 10X Doesn't</h3>
+        <p style="font-size:12px;">These are Triquetra products with proven demand that 10X Health isn't capturing:</p>
+        <div style="margin-top:8px;">
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Kids Methylfolate + B12</div>
+            <div style="font-size:11px;color:var(--text3);">$22.95 | $291K/mo | 8K+ units/mo | 2,427 reviews</div>
+            <span class="pill pill-red">HIGH PRIORITY</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Standalone Vitamin B12 5000mcg</div>
+            <div style="font-size:11px;color:var(--text3);">$23.00 | 5,386 reviews | 3K+ units/mo</div>
+            <span class="pill pill-red">HIGH PRIORITY</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Plant-Based D3+K2</div>
+            <div style="font-size:11px;color:var(--text3);">$27.50 | 2,285 reviews | 3K+ units/mo | D3+K2 Top 10</div>
+            <span class="pill pill-red">HIGH PRIORITY</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Methylated B Complex</div>
+            <div style="font-size:11px;color:var(--text3);">Active + Methylated forms | 3K+ units/mo</div>
+            <span class="pill pill-yellow">MEDIUM PRIORITY</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Organic Magnesium</div>
+            <div style="font-size:11px;color:var(--text3);">$26.99 | 1K reviews | 2K+ units/mo | Plant-based</div>
+            <span class="pill pill-yellow">MEDIUM PRIORITY</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">5-HTP (Mood/Sleep)</div>
+            <div style="font-size:11px;color:var(--text3);">$23.99 | 1.3K reviews | 2K+ units/mo</div>
+            <span class="pill pill-yellow">MEDIUM PRIORITY</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">SoActive Berberine + Cinnamon</div>
+            <div style="font-size:11px;color:var(--text3);">$44.95 | Just launched | Metabolic health trend</div>
+            <span class="pill pill-yellow">WATCH</span>
+          </div>
+          <div style="padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Colloidal Silver (Bioactive)</div>
+            <div style="font-size:11px;color:var(--text3);">$22.97 | 7,700 reviews | 3K+ units/mo | Niche but loyal</div>
+            <span class="pill pill-gray">LOW PRIORITY</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="green">✅ 10X Has, They Don't (Advantages)</h3>
+        <p style="font-size:12px;">Areas where 10X Health has an edge or unique positioning Triquetra doesn't match:</p>
+        <div style="margin-top:8px;">
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">34-in-1 Methylated Multivitamin</div>
+            <div style="font-size:11px;color:var(--text3);">$55 | $688K/mo | 1,826 reviews | No direct competitor at this SKU</div>
+            <span class="pill pill-green">DEFEND &amp; GROW</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Celebrity / Influencer Positioning</div>
+            <div style="font-size:11px;color:var(--text3);">"Use What The Stars Use" — Gary Brecka brand authority. Triquetra has no celebrity tie-in.</div>
+            <span class="pill pill-green">UNIQUE MOAT</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Children's Methylated Gummies</div>
+            <div style="font-size:11px;color:var(--text3);">$43.75 | Gummy format (no Triquetra equivalent) | 71 reviews (early)</div>
+            <span class="pill pill-green">BUILD ON THIS</span>
+          </div>
+          <div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Premium Positioning ($30-$55)</div>
+            <div style="font-size:11px;color:var(--text3);">Appeals to quality-over-price buyers. Gary Brecka trust signals command premium.</div>
+            <span class="pill pill-blue">BRAND ASSET</span>
+          </div>
+        </div>
+        <hr class="divider" style="margin:16px 0;">
+        <h3 class="blue" style="margin-bottom:10px;">🔵 Both Have (Battlegrounds)</h3>
+        <div>
+          <div style="margin-bottom:6px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">5-MTHF Methylfolate</div>
+            <div style="font-size:11px;color:var(--text3);">10X: $30 / 545 reviews vs Triquetra: $21.99 / 9,168 reviews</div>
+            <span class="pill pill-red">10X LOSING BADLY</span>
+          </div>
+          <div style="margin-bottom:6px;padding:8px;background:var(--bg3);border-radius:8px;">
+            <div style="font-weight:600;font-size:13px;">Kids Supplement</div>
+            <div style="font-size:11px;color:var(--text3);">10X: Gummies ($43.75, 71 reviews) vs Triquetra: Liquid ($22.95, 2,427 reviews)</div>
+            <span class="pill pill-red">10X LOSING</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="yellow">📊 Full Feature Comparison</h3>
+        <div class="matrix">
+          <table style="font-size:12px;">
+            <thead>
+              <tr><th style="text-align:left;min-width:160px;">Feature</th><th style="text-align:center;">10X</th><th style="text-align:center;">Triquetra</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Subscribe &amp; Save</td><td class="check" style="text-align:center;">?</td><td class="check" style="text-align:center;">✅</td></tr>
+              <tr><td>Multiple dose options</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅ 3 doses</td></tr>
+              <tr><td>Liquid/Drop form</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅</td></tr>
+              <tr><td>Organic certified</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅ USDA</td></tr>
+              <tr><td>Plant-based claim</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅</td></tr>
+              <tr><td>Kids product line</td><td class="partial" style="text-align:center;">〜 Gummies</td><td class="check" style="text-align:center;">✅ Liquid</td></tr>
+              <tr><td>Celebrity brand authority</td><td class="check" style="text-align:center;">✅</td><td class="cross" style="text-align:center;">❌</td></tr>
+              <tr><td>Brand store (concern nav)</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅ 23 cats</td></tr>
+              <tr><td>Bundles / Starter Kits</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅</td></tr>
+              <tr><td>Product videos (listing)</td><td class="cross" style="text-align:center;">?</td><td class="check" style="text-align:center;">✅ 11 videos</td></tr>
+              <tr><td>Multiple marketplaces</td><td class="cross" style="text-align:center;">US only?</td><td class="check" style="text-align:center;">✅ US+SG+UAE</td></tr>
+              <tr><td>GLP-1/Metabolic line</td><td class="cross" style="text-align:center;">❌</td><td class="check" style="text-align:center;">✅ GLP-Act</td></tr>
+              <tr><td>5-MTHF reviews</td><td class="cross" style="text-align:center;">545</td><td class="check" style="text-align:center;color:var(--accent4);">9,168</td></tr>
+              <tr><td>H10 Listing Health Score</td><td class="partial" style="text-align:center;">Unknown</td><td class="check" style="text-align:center;color:var(--accent4);">10/10</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMAZON PROGRAM GAPS -->
+  <section id="amazon-gaps">
+    <h2><span class="section-number">6</span>Amazon Program &amp; Tactic Gaps</h2>
+    <p>Areas where Triquetra is leveraging Amazon features that 10X Health isn't fully exploiting:</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <h3>📦 Subscribe &amp; Save</h3>
+        <p>Triquetra's 5-MTHF Subscribe &amp; Save price is <strong>$19.79/month</strong> vs $21.99 one-time. This drives recurring revenue and locks in customers long-term. S&S customers convert at 3-5x higher LTV. If 10X Health's 5-MTHF is not enrolled, this is immediate lost recurring revenue versus Triquetra's locked-in subscriber base.</p>
+        <div class="alert alert-red" style="margin-top:10px; font-size:12px;">Action: Enroll all 10X Health Amazon products in Subscribe &amp; Save. Set auto-delivery discount at 10-15%.</div>
+      </div>
+      <div class="card">
+        <h3>🎬 Product Videos (A+ Content)</h3>
+        <p>Triquetra has <strong>11 product videos</strong> on their 5-MTHF listing. Video content increases conversion rates 3-4x and Amazon prioritizes listings with video content in search. Videos explain the methylation story, MTHFR gene, and product benefits in ways static images cannot.</p>
+        <div class="alert alert-yellow" style="margin-top:10px; font-size:12px;">Action: Add minimum 3 product videos to each 10X Health Amazon listing. Gary Brecka testimonial videos would be highly effective.</div>
+      </div>
+      <div class="card">
+        <h3>🏪 Brand Store Architecture</h3>
+        <p>Triquetra's brand store has <strong>23 health-concern navigation categories</strong>, a "Busy Mom Starter Kit" bundle, a "NEW" tab, and a "BEST SELLERS" tab. This dramatically improves discoverability and average order value. 10X Health's brand store likely lacks this structure.</p>
+        <div class="alert alert-yellow" style="margin-top:10px; font-size:12px;">Action: Rebuild 10X Health's Amazon brand store with concern-based navigation. Create "Gary's Daily Stack" or "Performance Bundle" featured collections.</div>
+      </div>
+      <div class="card">
+        <h3>🌍 International Marketplaces</h3>
+        <p>Triquetra is active in <strong>US, Singapore, and UAE</strong> Amazon marketplaces (shown in H10 data). This diversifies revenue and captures international supplement buyers. The UAE market in particular has low competition in premium supplements.</p>
+        <div class="alert alert-green" style="margin-top:10px; font-size:12px;">Action: Evaluate international marketplace expansion — start with Canada (lowest barrier) then UAE for premium supplement positioning.</div>
+      </div>
+      <div class="card">
+        <h3>🎯 Sponsored Brand — SERP Ownership</h3>
+        <p>Triquetra owns the <strong>Sponsored Brand banner for "5-mthf"</strong> with the headline "The Metabolically Active Form of Folate." This grabs the entire top-of-page position before any organic results. 10X Health should run SB ads for their key terms — especially "methylated multivitamin" and "5-mthf."</p>
+        <div class="alert alert-red" style="margin-top:10px; font-size:12px;">Action: Activate Sponsored Brand campaigns for "5-mthf", "methylated multivitamin", and "MTHFR supplement" with Gary Brecka lifestyle imagery.</div>
+      </div>
+      <div class="card">
+        <h3>🧒 Kids Category Presence</h3>
+        <p>Triquetra's <strong>Kids Methylfolate + B12</strong> generates $291K/month with 8,000+ units/month. This is a completely separate buyer demographic (parents) that 10X Health's current children's gummies don't fully serve — the gummies have only 71 reviews vs. 2,427 for Triquetra's kids liquid. A targeted parent-focused listing could capture this revenue.</p>
+        <div class="alert alert-yellow" style="margin-top:10px; font-size:12px;">Action: Invest in aggressive review generation for 10X Children's Gummies. Add pediatrician-recommended messaging. Consider Kids Liquid dropper variant.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>🔴 Triquetra's Pricing Ladder Strategy (vs 10X Health's Single Price Point)</h3>
+      <p style="margin-bottom:16px;">Triquetra uses a deliberate <strong>price ladder across dosages</strong> to capture every budget level while maximizing upsell:</p>
+      <div style="overflow-x:auto;">
+        <table style="min-width:600px;">
+          <thead>
+            <tr><th>Product</th><th>Price</th><th>$/count</th><th>Target Buyer</th><th>Est. Units/Mo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>5-MTHF 1000mcg Entry</td><td class="green">$17.99</td><td>$0.30</td><td>Price-sensitive, new to methylation</td><td>~13,300</td></tr>
+            <tr><td>5-MTHF 7.5mg Mid</td><td class="green">$19.99</td><td>$0.33</td><td>Moderate dose seekers</td><td>~5,000</td></tr>
+            <tr><td>5-MTHF 15mg Core</td><td>$21.99</td><td>$0.37</td><td>High potency / MTHFR sufferers</td><td>~82,990</td></tr>
+            <tr><td>5-MTHF 15mg S&amp;S</td><td class="green">$19.79</td><td>$0.33</td><td>Recurring buyer (long-term)</td><td>% of 82,990</td></tr>
+            <tr><td style="color:var(--accent2);">10X Health 5-MTHF (comparison)</td><td class="yellow" style="color:var(--accent3);">$30.00</td><td style="color:var(--accent3);">$0.50</td><td style="color:var(--accent3);">Premium positioning only</td><td style="color:var(--accent3);">~1,000 est.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-red" style="margin-top:12px; font-size:12px;">10X Health has a single price point at a premium level ($30) with only 545 reviews. Without the review velocity or price ladder strategy, they will remain stuck below Triquetra's locked-in rank #1 position. The gap is widening every month Triquetra accumulates reviews at 82,990 units/month.</div>
+    </div>
+  </section>
+
+  <!-- ACTION ITEMS -->
+  <section id="actions">
+    <h2><span class="section-number">7</span>Action Items — Priority Ranked <span class="badge">SPECIFIC & EXECUTABLE</span></h2>
+
+    <div class="card-grid card-grid-3" style="margin-bottom:24px;">
+      <div class="card metric"><div class="metric-value red">5</div><div class="metric-label">Critical Priority</div></div>
+      <div class="card metric"><div class="metric-value yellow">7</div><div class="metric-label">High Priority</div></div>
+      <div class="card metric"><div class="metric-value green">4</div><div class="metric-label">Medium Priority</div></div>
+    </div>
+
+    <h3 style="margin-bottom:16px; color:var(--accent);">🔴 CRITICAL — Execute Within 30 Days</h3>
+
+    <div class="action-item priority-high">
+      <div class="action-header">
+        <div class="action-title">1. Launch a Standalone 5-MTHF + Methyl B12 Product at $22–$25 (Direct Triquetra Competitor)</div>
+        <div class="action-priority">CRITICAL</div>
+      </div>
+      <div class="action-body">
+        10X Health's current 5-MTHF is $30 with 545 reviews. Triquetra owns this category at $21.99 with 9,168 reviews. The gap is irreversible at the current price point. 10X Health needs to either:
+        <ul>
+          <li><strong>Create a new, lower-priced 5-MTHF SKU</strong> (60-count, $22.99) that competes directly on price, or</li>
+          <li><strong>Differentiate the existing SKU</strong> aggressively — add a full B-vitamin complex, NAD+, or another clinically supported co-factor that justifies the $30 price AND is in the title/bullets</li>
+          <li>Add a <strong>liquid/drop variant</strong> of the existing 5-MTHF — Triquetra's liquid is at 5,791 reviews and $21.99. A liquid format captures a completely different buyer segment</li>
+        </ul>
+        <div class="action-impact"><strong>Estimated Impact:</strong> Capturing just 5% of Triquetra's 82,990 monthly units = 4,150 extra units/month at $22 = <strong>+$91K/month</strong></div>
+      </div>
+    </div>
+
+    <div class="action-item priority-high">
+      <div class="action-header">
+        <div class="action-title">2. Aggressive Review Velocity Campaign for 5-MTHF (Target: 2,000 Reviews in 90 Days)</div>
+        <div class="action-priority">CRITICAL</div>
+      </div>
+      <div class="action-body">
+        Triquetra's 9,168 reviews create a near-impenetrable ranking advantage. 10X Health's 5-MTHF at 545 reviews will continue to rank poorly regardless of ad spend. A concentrated review push is essential.
+        <ul>
+          <li>Use <strong>Amazon Vine</strong> — enroll 5-MTHF ASIN immediately (up to 30 free Vine reviews)</li>
+          <li>Activate <strong>"Request a Review" button</strong> automation for every order (Helium 10 Follow-Up tool)</li>
+          <li>Run a <strong>Lightning Deal or Coupon</strong> to spike unit velocity and trigger the review generation flywheel</li>
+          <li>Create a <strong>package insert</strong> with QR code linking to a simple review request (compliant with Amazon TOS)</li>
+          <li>Consider a <strong>price drop to $24.99 for 60 days</strong> to accelerate unit velocity and review accumulation before returning to $30</li>
+        </ul>
+        <div class="action-impact"><strong>Target:</strong> 2,000+ reviews in 90 days. Every 500 additional reviews improves organic rank by ~3 positions in this category.</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-high">
+      <div class="action-header">
+        <div class="action-title">3. Activate Sponsored Brand Campaigns for "5-mthf", "methylfolate", "l-methylfolate" & "b12"</div>
+        <div class="action-priority">CRITICAL</div>
+      </div>
+      <div class="action-body">
+        Triquetra owns the Sponsored Brand banner on "5-mthf". 10X Health is invisible at the top of this SERP. Meanwhile, the "b12" and "vitamin b12" terms (131K searches each, -13%/-5% trend) have relatively affordable CPCs ($2.56–$2.70).
+        <ul>
+          <li>Create <strong>SB campaign for "5-mthf"</strong> using Gary Brecka lifestyle imagery and headline: "Gary Brecka's #1 Recommended Form of Folate"</li>
+          <li>Create <strong>SB video campaign</strong> for "methylfolate" (29,863 searches) — Gary Brecka explaining the MTHFR gene story in 30 seconds</li>
+          <li>Run <strong>SP ads targeting "vitamin b12" and "b12"</strong> — cross-sell the 5-MTHF to B12 searchers. Triquetra gets this traffic organically; 10X Health can get it via PPC</li>
+          <li>Bid on <strong>"triquetra methylfolate"</strong> branded keyword — it has 10,178 searches/month and searchers already know this product category</li>
+        </ul>
+        <div class="action-impact"><strong>Estimated Impact:</strong> 1% CVR on "b12" (131K searches) = 1,310 additional unit sales/month at $30 = <strong>+$39K/month</strong></div>
+      </div>
+    </div>
+
+    <div class="action-item priority-high">
+      <div class="action-header">
+        <div class="action-title">4. Launch Kids 5-MTHF Product — Liquid Dropper Format</div>
+        <div class="action-priority">CRITICAL</div>
+      </div>
+      <div class="action-body">
+        Triquetra's Kids Methylfolate+B12 generates <strong>$291K/month</strong> with 8,000+ units/month and 2,427 reviews. This is the single biggest unaddressed revenue opportunity for 10X Health. 10X has children's gummies (71 reviews) but no liquid dropper for infants/toddlers where Triquetra is dominant.
+        <ul>
+          <li>Launch <strong>"10X Kids Methylfolate + B12 Liquid Drops"</strong> — flavorless or mild berry flavor, age-specific dosing</li>
+          <li>Position with Gary Brecka messaging: <em>"The same formula I use for my own children"</em></li>
+          <li>Target keywords: "kids methylfolate," "kids l-methylfolate," "mthfr kids supplement"</li>
+          <li>Price competitively at $21–$24 to match Triquetra's $22.95</li>
+          <li>Bundle with the adult 5-MTHF for a "Family Methylation Pack"</li>
+        </ul>
+        <div class="action-impact"><strong>Estimated Impact:</strong> Capturing 20% of Triquetra's kids units = 1,600 units/month × $22 = <strong>+$35K/month</strong> in new revenue</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-high">
+      <div class="action-header">
+        <div class="action-title">5. Add 11+ Product Videos to All 10X Health Amazon Listings</div>
+        <div class="action-priority">CRITICAL</div>
+      </div>
+      <div class="action-body">
+        Triquetra has 11 videos on their top listing — the maximum allowed. Amazon rewards listings with video content with significantly better placement in search. Gary Brecka's existing video content is a major untapped asset.
+        <ul>
+          <li>Upload Gary Brecka's <strong>existing YouTube/social videos</strong> explaining methylation, MTHFR, 5-MTHF benefits directly to the product listing</li>
+          <li>Add a <strong>customer testimonial compilation video</strong> (3 min max)</li>
+          <li>Create a <strong>"How to use" explainer</strong> for each product</li>
+          <li>Add a <strong>"Why 10X?" brand story video</strong> featuring Gary Brecka directly</li>
+          <li>Submit videos for <strong>A+ Premium Content</strong> (module with autoplay video above the fold)</li>
+        </ul>
+        <div class="action-impact"><strong>Estimated Impact:</strong> Video content typically increases conversion rate 3–5%. On 10X's current traffic, a 3% CVR increase = +15–20% revenue per listing.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <h3 style="margin-bottom:16px; color:var(--accent3);">🟡 HIGH PRIORITY — Execute Within 60 Days</h3>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">6. Enroll All Products in Subscribe &amp; Save + Optimize Pricing</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra's 5-MTHF Subscribe &amp; Save is $19.79/month. S&S customers have 3–5x higher LTV and significantly reduce churn. If 10X Health's products aren't in S&S, every customer is a one-time purchase.
+        <ul>
+          <li>Enroll all 3 ASINs in Subscribe &amp; Save immediately</li>
+          <li>Set S&S discount at 15% (slightly more aggressive than Triquetra's ~10%) to win subscription share</li>
+          <li>Add "Best Value: Subscribe &amp; Save" messaging to bullet points and A+ content</li>
+          <li>Target S&S customers with coupon-stacking discounts on first order</li>
+        </ul>
+        <div class="action-impact"><strong>Estimated Impact:</strong> If 30% of units convert to S&S recurring, reduces monthly revenue volatility and increases annual customer value by ~2.5x.</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">7. Rebuild Amazon Brand Store with "Shop by Concern" Navigation + Featured Bundles</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra's brand store has 23 health concern categories. 10X Health should build a curated, concern-driven store that maximizes shopper discovery and cross-sell.
+        <ul>
+          <li>Create these store pages: <strong>Methylation, Brain &amp; Cognition, Energy &amp; Performance, Children's Health, Hormone Support</strong></li>
+          <li>Feature a <strong>"Gary's Daily Stack"</strong> bundle page — showing exactly what Gary Brecka takes daily</li>
+          <li>Create a <strong>"Results in 30 Days" starter kit</strong> bundle</li>
+          <li>Add a <strong>"NEW" section</strong> and featured seasonal promotions section</li>
+          <li>Add Amazon Posts integration — Triquetra almost certainly uses this to drive organic brand store traffic</li>
+        </ul>
+        <div class="action-impact">Brand store visits drive cross-sell and higher basket size. Well-structured stores see 10–15% of brand traffic converting to multi-product orders.</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">8. Launch Standalone Vitamin B12 5000mcg Product (Direct B12 Category Capture)</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra's B12 product has 5,386 reviews and 3K+ units/month. The "b12" and "vitamin b12" keywords each have 131K+ monthly searches. 10X Health's multivitamin contains B12 but isn't indexing well for standalone B12 searches.
+        <ul>
+          <li>Launch <strong>10X BioActive Methyl-B12 5000mcg</strong> — liquid sublingual or capsule, methylcobalamin form</li>
+          <li>Optimize listing title for "vitamin b12," "b12," "methylcobalamin b12"</li>
+          <li>Price at $21–$24 to compete on volume and accelerate reviews</li>
+          <li>Include 5-MTHF messaging as a co-factor — educate B12 searchers about methylation</li>
+        </ul>
+        <div class="action-impact"><strong>Estimated Revenue:</strong> Capturing 2% of 131K monthly "b12" searches at 25% CVR = 655 units/month × $22 = <strong>+$14K/month</strong> (scales significantly with reviews)</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">9. Optimize All Listing Titles for B12 + Methylation Keywords</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra's title contains "L-Methylfolate... Methyl B12 Cofactor" which gets them indexed for both 5-MTHF AND B12 terms. 10X Health's titles need keyword engineering to rank for these high-volume terms.
+        <ul>
+          <li><strong>5-MTHF listing:</strong> Add "Methyl B12" and "Methylcobalamin" to title — get indexed for 131K+ search volume</li>
+          <li><strong>Multivitamin listing:</strong> Add "MTHFR Support" or "MTHFR Supplement" to title — high-intent keyword with 2,800/month searches</li>
+          <li>Ensure backend keywords include: b12, vitamin b12, methylfolate, l-methylfolate, mthfr, methylcobalamin, folate supplement</li>
+          <li>A/B test title variations using Manage Your Experiments (brand registered)</li>
+        </ul>
+        <div class="action-impact">Title keyword optimization can improve organic rank by 5–10 positions within 30–60 days of indexing. Getting indexed for "b12" alone (131K searches) could drive significant organic traffic.</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">10. Create Methylated B Complex Product (Active B vitamins in all forms)</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra has a "BioActive Vitamin B Complex" with 3K+ units/month. A methylated B-complex bundles B1, B2, B3, B5, B6, folate (5-MTHF), B12 (methylcobalamin) all in their most bioavailable forms. This is a natural adjacent product for 10X Health's methylation-focused positioning.
+        <ul>
+          <li>Launch <strong>10X Methyl-B Complete</strong> — all active, methylated B vitamins in one capsule</li>
+          <li>Gary Brecka angle: <em>"The B-Complex I actually recommend — all methylated, all active"</em></li>
+          <li>Cross-sell and bundle with the 5-MTHF and Optimize Multivitamin</li>
+          <li>Target keywords: "methylated b complex," "active b complex," "methyl b vitamins," "b complex supplement"</li>
+        </ul>
+        <div class="action-impact">B Complex is one of the largest supplement categories on Amazon. Even a 0.1% share of this market = significant incremental revenue.</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">11. Enter the Berberine/Blood Sugar Category Before Triquetra Gets Entrenched</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra just launched SoActive Berberine ($44.95) and SoActive Cinnamon ($43.50) — both new, with under 25 reviews each. This is an early mover window. The berberine category is one of the fastest-growing supplement segments driven by GLP-1/Ozempic cultural awareness.
+        <ul>
+          <li>Research the berberine keyword landscape now (before Triquetra dominates)</li>
+          <li>Consider launching a <strong>10X Berberine + Ceylon Cinnamon</strong> product with Gary Brecka blood sugar messaging</li>
+          <li>Gary Brecka already speaks about blood sugar and metabolic health in interviews — this is on-brand</li>
+          <li>Target keywords: "berberine," "berberine supplement," "berberine blood sugar," "natural metformin"</li>
+        </ul>
+        <div class="action-impact">The berberine market is ~$50M+ on Amazon. Entering now vs. in 12 months is the difference between launching into a developing category vs. an established one.</div>
+      </div>
+    </div>
+
+    <div class="action-item priority-med">
+      <div class="action-header">
+        <div class="action-title">12. Activate Amazon Posts + Amazon Attribution for Off-Platform Traffic</div>
+        <div class="action-priority">HIGH</div>
+      </div>
+      <div class="action-body">
+        Triquetra has 100K+ brand followers on Amazon (shown in their SB ad: "100K+ bought from this brand in past month"). Amazon Posts are a free, shoppable social feed that drives brand store traffic and organic ranking signals. 10X Health's large social following is a major underutilized asset.
+        <ul>
+          <li>Set up <strong>Amazon Posts</strong> with Gary Brecka content — 3–5 posts per week</li>
+          <li>Use <strong>Amazon Attribution</strong> to track Gary Brecka's podcast/social traffic to Amazon and optimize accordingly</li>
+          <li>Build <strong>Amazon Influencer storefront</strong> for Gary Brecka himself — his recommendations drive authority clicks</li>
+          <li>Create <strong>Amazon Live</strong> sessions with Gary Brecka explaining methylation science</li>
+        </ul>
+        <div class="action-impact">Off-platform traffic conversions signal to Amazon's algorithm that a product is high-demand, directly improving organic rank. Celebrity traffic converted through Amazon attribution is one of the most powerful organic rank boosters available.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <h3 style="margin-bottom:16px; color:var(--accent4);">🟢 MEDIUM PRIORITY — Execute Within 90 Days</h3>
+
+    <div class="action-item priority-low">
+      <div class="action-header">
+        <div class="action-title">13. Add Organic/Plant-Based Certification or Messaging</div>
+        <div class="action-priority">MEDIUM</div>
+      </div>
+      <div class="action-body">
+        Triquetra's entire brand is built on organic, plant-based, USDA-certified ingredients. Every listing has the "Organic Content" badge. This resonates with a large and growing segment of supplement buyers. 10X Health's formulas may not be USDA organic, but adding clean-label messaging ("No Artificial Additives," "Gluten-Free," "Non-GMO," "Third-Party Tested") closes this gap.
+        <ul>
+          <li>Get <strong>Non-GMO Project</strong> or <strong>Informed Sport certification</strong> on key products</li>
+          <li>Add clean label claims to all bullet points and A+ content</li>
+          <li>If formulas can be reformulated, target USDA Organic for 5-MTHF product</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="action-item priority-low">
+      <div class="action-header">
+        <div class="action-title">14. Launch Magnesium Product (Organic/Plant-Based Positioning)</div>
+        <div class="action-priority">MEDIUM</div>
+      </div>
+      <div class="action-body">
+        Triquetra's Plant Magnesium 250mg has 1K reviews and 2K+ units/month at $26.99. Magnesium is one of the highest-volume supplement categories on Amazon and a natural complement to 10X Health's methylation/cognitive focus. Gary Brecka frequently mentions magnesium in his content.
+      </div>
+    </div>
+
+    <div class="action-item priority-low">
+      <div class="action-header">
+        <div class="action-title">15. Develop "Family Methylation Bundle" — Adult + Kids Pack</div>
+        <div class="action-priority">MEDIUM</div>
+      </div>
+      <div class="action-body">
+        Triquetra's "Busy Mom Starter Kit" bundles products targeted at parents. 10X Health can do the same with a "Family Methylation Pack" (Adult 5-MTHF + Kids Gummies) — higher AOV, less competition in bundle category, unique value proposition around family health.
+      </div>
+    </div>
+
+    <div class="action-item priority-low">
+      <div class="action-header">
+        <div class="action-title">16. Evaluate International Marketplace Expansion (Canada, UAE)</div>
+        <div class="action-priority">MEDIUM</div>
+      </div>
+      <div class="action-body">
+        Triquetra sells in US, Singapore, and UAE. Canada Amazon is the lowest-barrier international expansion for a US-based brand and the premium supplement market there has lower competition than the US. Gary Brecka's international podcast audience creates ready-made demand.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <div style="border-top: 1px solid var(--border); padding: 32px 0; margin-top:32px; text-align:center; color:var(--text3); font-size:12px;">
+    <div style="margin-bottom:8px;"><strong style="color:var(--text2);">10X Health Amazon Competitor Analysis</strong></div>
+    <div>Research Date: July 10, 2026 &nbsp;|&nbsp; Sources: Amazon Live SERP, Helium 10 Xray (v8.40.2), Helium 10 Cerebro, Amazon Brand Stores</div>
+    <div style="margin-top:8px;">Data reflects real-time Amazon data as of research date. Revenue figures from Helium 10 Xray estimates. All rankings and figures subject to change.</div>
+  </div>
+
+</div>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id], div[id="executive"]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
