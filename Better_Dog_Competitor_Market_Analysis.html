@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Better Dog Competitor Market Analysis</title>
+  <style>
+    :root {
+      --ink: #14241e;
+      --muted: #66746d;
+      --line: #dbe5df;
+      --panel: #ffffff;
+      --soft: #f3f8f4;
+      --green: #1f6b38;
+      --green-2: #2f7d45;
+      --teal: #128897;
+      --aqua: #dff4f3;
+      --gold: #d99a20;
+      --warn: #be4b3c;
+      --dark: #0d2119;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, Arial, sans-serif; color: var(--ink); background: #eef4f0; line-height: 1.45; }
+    .hero { background: linear-gradient(120deg, #0d2119 0%, #164529 55%, #1c6d72 100%); color: #fff; padding: 44px 6vw 36px; }
+    .eyebrow { color: #ffd36c; text-transform: uppercase; letter-spacing: .12em; font-weight: 800; font-size: 12px; }
+    h1 { margin: 10px 0 10px; font-size: clamp(32px, 5vw, 60px); line-height: 1; max-width: 1120px; }
+    .hero p { max-width: 1040px; color: rgba(255,255,255,.82); font-size: 18px; margin: 0; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .pill { border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.1); color: #fff; padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+    main { padding: 24px 6vw 56px; }
+    section { margin: 0 auto 24px; max-width: 1400px; }
+    .grid { display: grid; gap: 16px; }
+    .grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px; box-shadow: 0 14px 30px rgba(13,33,25,.06); }
+    .card.dark { background: var(--dark); color: #fff; border-color: #214c3c; }
+    .card.dark p, .card.dark .muted { color: rgba(255,255,255,.72); }
+    .section-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin: 34px 0 14px; }
+    h2 { margin: 0; font-size: 28px; line-height: 1.1; }
+    h3 { margin: 0 0 8px; font-size: 18px; }
+    h4 { margin: 16px 0 8px; font-size: 14px; color: var(--green); text-transform: uppercase; letter-spacing: .08em; }
+    p { margin: 0 0 10px; }
+    .muted { color: var(--muted); }
+    .metric { font-size: 32px; font-weight: 900; letter-spacing: -.03em; margin: 4px 0; }
+    .small { font-size: 13px; }
+    .tag { display: inline-block; padding: 5px 8px; border-radius: 999px; background: var(--soft); color: var(--green); border: 1px solid #cfe2d4; font-size: 12px; font-weight: 800; margin: 3px 4px 3px 0; }
+    .tag.gold { background: #fff6dc; border-color: #f0d892; color: #8a5a00; }
+    .tag.red { background: #fff0ee; border-color: #f1beb7; color: #9b3025; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: #f5faf6; color: #45564d; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    tr:last-child td { border-bottom: 0; }
+    .bar { height: 10px; background: #e6eee8; border-radius: 999px; overflow: hidden; min-width: 120px; }
+    .bar span { display:block; height: 100%; background: linear-gradient(90deg, var(--teal), #55c883); }
+    .bar.gold span { background: linear-gradient(90deg, var(--gold), #f4cb63); }
+    .chart { display: grid; grid-template-columns: 150px 1fr 90px; align-items: center; gap: 12px; margin: 12px 0; }
+    .callout { border-left: 5px solid var(--teal); background: var(--aqua); padding: 14px 16px; border-radius: 8px; }
+    .callout.warn { background: #fff5f2; border-left-color: var(--warn); }
+    .steps { counter-reset: step; display: grid; gap: 12px; }
+    .step { position: relative; padding-left: 46px; }
+    .step:before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; display:grid; place-items:center; background: var(--green); color:white; font-weight:900; }
+    .matrix { display: grid; grid-template-columns: repeat(5, minmax(180px, 1fr)); gap: 12px; }
+    .competitor { border-top: 4px solid var(--green); }
+    .competitor:nth-child(2) { border-top-color: #2d8a7e; }
+    .competitor:nth-child(3) { border-top-color: var(--gold); }
+    .competitor:nth-child(4) { border-top-color: #6a8f43; }
+    .competitor:nth-child(5) { border-top-color: #874b89; }
+    .footer { color: var(--muted); font-size: 13px; margin-top: 30px; }
+    @media (max-width: 980px) { .grid.cols-4, .grid.cols-3, .grid.cols-2, .matrix { grid-template-columns: 1fr; } .section-title { display:block; } .chart { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">Better Dog Supplements by Cesar Millan</div>
+    <h1>Competitor Market Analysis: where Cosequin, Dasuquin, Zesty Paws, PetLab, and calming leaders are winning</h1>
+    <p>Built for Amazon market-share decisions across joint support, itch/allergy, digestive remedies, puppy immune, and relaxants. The report ties visible Amazon marketplace signals to Better Dog ad performance and turns the gaps into sponsored display, AMC, storefront, bundle, and product-development actions.</p>
+    <div class="meta">
+      <span class="pill">Prepared July 13, 2026</span>
+      <span class="pill">Better Dog ads data usable through July 9, 2026</span>
+      <span class="pill">Amazon visible-result scrape: logged-in Chrome</span>
+      <span class="pill">No Amazon Ads writes included</span>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="grid cols-4">
+        <div class="card"><div class="muted small">Market moat to beat</div><div class="metric">100K+</div><p>Zesty Paws Allergy Immune visible ratings, with 20K+ bought in past month.</p></div>
+        <div class="card"><div class="muted small">Joint leader</div><div class="metric">40K+</div><p>Cosequin 132-count visible monthly purchase velocity on the main joint query.</p></div>
+        <div class="card"><div class="muted small">Better Dog best current ad signal</div><div class="metric">3.8x</div><p>Skin Magic and Allergy Balance are the clearest scale candidates in current ads data.</p></div>
+        <div class="card"><div class="muted small">Current SD gap</div><div class="metric">$17.66</div><p>Sponsored Display spend in the current Better Dog snapshot, with no attributed sales.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Executive Summary</h2><p class="muted">The short version: Better Dog has a stronger story than the market currently sees, but competitors are winning through review density, soft-chew formats, subscribe/coupon pressure, and condition-specific Amazon shelf ownership.</p></div></div>
+      <div class="grid cols-2">
+        <div class="card dark">
+          <h3>What competitors are doing differently</h3>
+          <p>Cosequin and Dasuquin win joint support with massive review trust, multiple pack sizes, Best Seller / Overall Pick badges, high monthly unit velocity, and a clear vet-authority position. Zesty Paws wins allergy, calming, puppy, and multivitamin demand with a wide soft-chew portfolio, flavor/age variants, and frequent Subscribe & Save pressure. PetLab is using a gut-plus-allergy positioning that directly overlaps Better Dog's allergy and digestive products.</p>
+          <p>Better Dog is currently strongest where the market is also most contestable: Skin Magic and Allergy Balance. Those two products have enough ad efficiency to support controlled conquest, retargeting, and bundle testing.</p>
+        </div>
+        <div class="card">
+          <h3>What this means for Better Dog</h3>
+          <div class="steps">
+            <div class="step"><strong>Do not try to out-Cosequin Cosequin on generic joint terms first.</strong><br><span class="muted">Use Forever Active for long-tail joint, senior mobility, and competitor PDP retargeting while building review/social proof.</span></div>
+            <div class="step"><strong>Lead with itch/allergy and digestive remedies.</strong><br><span class="muted">Skin Magic and Allergy Balance are Better Dog's best PPC proof points and map to the new subcategories.</span></div>
+            <div class="step"><strong>Use Sponsored Display and AMC to convert warmer shoppers.</strong><br><span class="muted">Better Dog should stop treating competitor traffic as broad prospecting only; retarget PDP viewers, storefront visitors, and category shoppers by condition cluster.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Top 5 Competitor Readout</h2><p class="muted">Visible Amazon search-result observations from July 13, 2026. These are shelf signals, not private competitor sales records.</p></div></div>
+      <div class="matrix">
+        <div class="card competitor"><h3>Nutramax Cosequin</h3><p><strong>Category:</strong> joint/hip support</p><p><strong>Visible lead:</strong> Cosequin 132 ct, 40K+ bought; 79K+ ratings; 4.7 stars.</p><p><strong>Advantage:</strong> trust moat, pack sizes, badges, S&S discount, vet authority.</p></div>
+        <div class="card competitor"><h3>Nutramax Dasuquin</h3><p><strong>Category:</strong> premium joint</p><p><strong>Visible lead:</strong> Dasuquin Large Dogs 150 ct, 10K+ bought; 18.8K ratings; 4.7 stars.</p><p><strong>Advantage:</strong> premium veterinary framing and high AOV.</p></div>
+        <div class="card competitor"><h3>Zesty Paws</h3><p><strong>Category:</strong> allergy, puppy, calming</p><p><strong>Visible lead:</strong> Allergy Immune Bites, 20K+ bought; 100.6K ratings; Best Seller.</p><p><strong>Advantage:</strong> soft-chew portfolio saturation and variant coverage.</p></div>
+        <div class="card competitor"><h3>PetLab Co</h3><p><strong>Category:</strong> allergy/probiotic, joint</p><p><strong>Visible lead:</strong> Allergy & Immune Probiotics, 10K+ bought; 8.2K ratings.</p><p><strong>Advantage:</strong> combines gut, immune, and allergy in one PDP promise.</p></div>
+        <div class="card competitor"><h3>VetriScience / Purina</h3><p><strong>Category:</strong> relaxants/calming</p><p><strong>Visible lead:</strong> Purina Calming Care 20K+ bought; VetriScience Composure 17.5K ratings.</p><p><strong>Advantage:</strong> veterinary/probiotic trust and category relevance.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Amazon Shelf Evidence</h2><p class="muted">Comparable products that are taking attention and conversion pressure away from Better Dog.</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Query / Category</th><th>Competitor product</th><th>Visible rank signal</th><th>Price</th><th>Reviews</th><th>Velocity / badge</th><th>Better Dog implication</th></tr></thead>
+          <tbody>
+            <tr><td>dog joint supplement</td><td>Nutramax Cosequin Maximum Strength, 132 ct</td><td>Organic rank 6 after sponsored placements</td><td>$34.91</td><td>4.7 / 79,229</td><td>40K+ bought; Overall Pick; Subscribe & Save</td><td>Forever Active needs long-tail positioning, not immediate broad generic bid war.</td></tr>
+            <tr><td>dog joint supplement</td><td>Nutramax Dasuquin Large Dogs, 150 ct</td><td>Organic rank 9</td><td>$84.99</td><td>4.7 / 18,858</td><td>10K+ bought; premium AOV</td><td>Opportunity for senior/joint bundle, but review moat is steep.</td></tr>
+            <tr><td>dog itch remedies supplement</td><td>Zesty Paws Allergy Immune Bites</td><td>Organic rank 5 and sponsored presence</td><td>$32.97</td><td>4.2 / 100,649</td><td>20K+ bought; Best Seller</td><td>Skin Magic and Allergy Balance must attack specific itch + gut immune angles, not only generic allergy.</td></tr>
+            <tr><td>dog itch remedies supplement</td><td>PetLab Co Allergy & Immune Probiotics</td><td>Sponsored rank 2</td><td>$35.95</td><td>4.1 / 8,263</td><td>10K+ bought; Subscribe & Save</td><td>Direct overlap with Allergy Balance + Inner Purity. Strong candidate for SD/PAT testing with strict guardrails.</td></tr>
+            <tr><td>puppy immune supplement</td><td>Zesty Paws Puppy Multivitamin Bites</td><td>Organic rank 9</td><td>$20.97</td><td>4.5 / 56,576</td><td>900+ bought; Best Seller</td><td>Puppy Defense needs a clearer puppy-format and benefit story; broad scale is not ready yet.</td></tr>
+            <tr><td>dog calming supplement</td><td>Zesty Paws Calming Chews</td><td>Organic rank 1</td><td>$34.97</td><td>4.1 / 21,442</td><td>5K+ bought; 50% S&S visible</td><td>Calm Confidence needs Relaxants subcategory plus video/retargeting before broad conquest.</td></tr>
+            <tr><td>dog calming supplement</td><td>Purina Pro Plan Calming Care</td><td>Organic rank 7</td><td>$33.99</td><td>4.2 / 3,230</td><td>20K+ bought; Subscribe & Save</td><td>Purina owns probiotic calming. Better Dog needs emotional/behavior benefit plus Cesar authority.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Better Dog Product Position</h2><p class="muted">Ad performance through the latest usable Better Dog dashboard data, July 9, 2026.</p></div></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Products with real scale signal</h3>
+          <div class="chart"><strong>Skin Magic</strong><div class="bar"><span style="width:98%"></span></div><span>$1,571 / 3.78x</span></div>
+          <div class="chart"><strong>Allergy Balance</strong><div class="bar"><span style="width:96%"></span></div><span>$1,538 / 3.80x</span></div>
+          <div class="chart"><strong>Forever Active</strong><div class="bar"><span style="width:12%"></span></div><span>$181 / 2.70x</span></div>
+          <div class="chart"><strong>Happy-Go-Lucky Belly</strong><div class="bar"><span style="width:8%"></span></div><span>$80 / 2.62x</span></div>
+          <p class="muted small">Bar length is indexed to highest ad sales among Better Dog products in the current dashboard snapshot.</p>
+        </div>
+        <div class="card">
+          <h3>Products that need constraint before conquest</h3>
+          <div class="chart"><strong>Puppy Defense</strong><div class="bar gold"><span style="width:100%"></span></div><span>249.5% ACOS</span></div>
+          <div class="chart"><strong>Calm Confidence</strong><div class="bar gold"><span style="width:76%"></span></div><span>190.3% ACOS</span></div>
+          <div class="chart"><strong>Calm Surrender</strong><div class="bar gold"><span style="width:76%"></span></div><span>190.2% ACOS</span></div>
+          <div class="chart"><strong>Inner Purity</strong><div class="bar gold"><span style="width:55%"></span></div><span>137.7% ACOS</span></div>
+          <p class="muted small">These should use retargeting, PDP cleanup, storefront education, and narrow exact terms before broad competitor conquest.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Category Mapping After Subcategory Changes</h2><p class="muted">How the new Amazon taxonomy should guide campaign structure and market-share plays.</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Better Dog product</th><th>New category</th><th>Primary competitors</th><th>Ad role</th><th>Required boundary</th></tr></thead>
+          <tbody>
+            <tr><td>Skin Magic</td><td>Itch Remedies</td><td>Zesty Paws Allergy, PetLab Allergy & Immune, Native Pet Itching Skin Relief</td><td>Lead conquest + retargeting product</td><td>Separate itch/skin intent from broad digestive and general allergy campaigns.</td></tr>
+            <tr><td>Inner Purity</td><td>Digestive Remedies</td><td>PetLab Probiotics, Purina FortiFlora, Zesty Paws Probiotic Bites</td><td>Education + bundle support</td><td>Do not overbid generic probiotic until PDP and conversion rate improve.</td></tr>
+            <tr><td>Allergy Balance</td><td>Digestive Remedies</td><td>PetLab Allergy & Immune, Zesty Paws Allergy Immune</td><td>Best current PPC scale product</td><td>Own allergy + gut/immune intent; add negatives in Skin Magic when shopper intent is not skin/itch.</td></tr>
+            <tr><td>Calm Confidence</td><td>Relaxants</td><td>Zesty Paws Calming, VetriScience Composure, Purina Calming Care</td><td>Video + retargeting test</td><td>Keep calm terms separated from Calm Surrender to prevent self-cannibalization.</td></tr>
+            <tr><td>Happy-Go-Lucky Belly</td><td>Digestive Remedies</td><td>Zesty/PetLab/Purina digestive set</td><td>Long-tail exact and bundle add-on</td><td>Use fiber-for-dogs ownership; avoid generic probiotic overlap with Inner Purity.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>What They Sell That Better Dog Should Consider</h2><p class="muted">These are product and offer gaps visible from competitor shelf behavior.</p></div></div>
+      <div class="grid cols-3">
+        <div class="card"><h3>Soft chews by condition</h3><p>Zesty Paws dominates with soft chew formats for allergy, puppy, calming, and multivitamin demand. Better Dog’s liquid/supplement story can be strong, but Amazon shoppers are clearly rewarding chew convenience.</p><span class="tag">Product development</span><span class="tag">High priority</span></div>
+        <div class="card"><h3>Joint pack-size ladder</h3><p>Cosequin/Dasuquin use 60, 84, 132, 150-count options to cover trial, value, and premium buyers. Forever Active needs a clearer trial/value ladder or bundle to compete.</p><span class="tag">AOV</span><span class="tag">Joint support</span></div>
+        <div class="card"><h3>Puppy-specific bites</h3><p>Zesty Paws has puppy allergy and puppy multivitamin lines. Puppy Defense should either become unmistakably puppy-first in PDP/video or stay narrow until social proof improves.</p><span class="tag">Puppy</span><span class="tag">Creative gap</span></div>
+        <div class="card"><h3>Dental + calming stick</h3><p>Zesty Paws OraStix blends dental and calming. This is not a direct Better Dog SKU today, but it shows Amazon demand for combo-use treats.</p><span class="tag">Future SKU</span></div>
+        <div class="card"><h3>Allergy + probiotic bundle</h3><p>PetLab’s strongest overlap is a single PDP promise around allergy, gut, and immune support. Better Dog can answer with Skin Magic + Allergy Balance + Inner Purity bundles.</p><span class="tag">Bundle</span><span class="tag">Immediate</span></div>
+        <div class="card"><h3>Coupon/S&S pressure</h3><p>Competitors visibly use 20% to 50% Subscribe & Save/coupon signals. Better Dog should test controlled coupons on conquest and storefront traffic instead of blanket discounting.</p><span class="tag">Offer strategy</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>What Better Dog Sells That Competitors Do Not Own Cleanly</h2><p class="muted">The best angle is not “another supplement”; it is Cesar-backed condition education plus liquid/formula differentiation.</p></div></div>
+      <div class="grid cols-2">
+        <div class="card"><h3>Cesar Millan authority as a conversion asset</h3><p>Competitors win trust with review count and vet framing. Better Dog’s differentiator is brand trust and behavior/whole-dog authority. That should show up in Sponsored Brands Video, Storefront condition pages, and PDP A+ content.</p></div>
+        <div class="card"><h3>Condition bundles rather than isolated SKUs</h3><p>Competitors often win one category at a time. Better Dog can package “itch + gut immune,” “digestive reset,” “calm routine,” and “senior active” journeys to lift AOV and explain why products work together.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Sponsored Display + AMC Market-Share Plan</h2><p class="muted">This is the ad system to start taking share without blindly overbidding giant generic keywords.</p></div></div>
+      <div class="grid cols-3">
+        <div class="card"><h3>Sponsored Display conquest</h3><p>Build competitor ASIN groups by condition. Start with Skin Magic and Allergy Balance against Zesty/PetLab allergy/itch PDPs. Use Forever Active cautiously against Cosequin/Dasuquin long-tail PDPs. Keep Calm Confidence retargeting-first until conversion improves.</p><span class="tag gold">Approval-gated</span></div>
+        <div class="card"><h3>Sponsored Display retargeting</h3><p>Create 7/14/30-day viewed-but-not-purchased audiences by product cluster. Cross-sell Skin Magic viewers into Allergy Balance and Inner Purity; digestive viewers into Happy-Go-Lucky Belly; calm viewers into Calm Confidence/Calm Surrender only after PDP cleanup.</p><span class="tag">High fit</span></div>
+        <div class="card"><h3>AMC audiences</h3><p>Use AMC to isolate shoppers who viewed competitor ASINs and Better Dog ASINs, shoppers exposed to SP/SB/SD but not purchased, bought once but not Subscribe & Save, and storefront visitors by condition page.</p><span class="tag">Measurement layer</span></div>
+      </div>
+      <div class="callout" style="margin-top:16px"><strong>Key rule:</strong> Sponsored Display should not be judged only by same-day last-click ROAS. Use AMC to measure assisted conversions, view-through paths, repeat visits, NTB, Subscribe & Save conversion, and whether competitor-PDP exposure later converts through branded or organic terms.</div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Specific Action Items</h2><p class="muted">These are ready to move into the Better Dog dashboard Action Items queue for approval.</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Priority</th><th>Action</th><th>Why</th><th>Owner product</th><th>Guardrail</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag red">NOW</span></td><td>Create SD/PAT test: Skin Magic vs Zesty/PetLab itch/allergy ASINs</td><td>Skin Magic has 3.78x ROAS and maps to Itch Remedies, while Zesty/PetLab visibly own the shelf.</td><td>Skin Magic</td><td>Small budget; pause ASINs with spend/no orders; no duplicate intent with Allergy Balance.</td></tr>
+            <tr><td><span class="tag red">NOW</span></td><td>Create Allergy + Gut bundle campaign and Storefront block</td><td>PetLab wins by combining allergy, immune, and probiotic language. Better Dog can answer with Skin Magic + Allergy Balance + Inner Purity.</td><td>Skin Magic, Allergy Balance, Inner Purity</td><td>Use separate landing/storefront page and track add-to-cart + S&S.</td></tr>
+            <tr><td><span class="tag gold">NEXT</span></td><td>Launch condition Storefront pages</td><td>Competitors make the Amazon shelf easy to understand by condition and format. Better Dog should organize traffic by itch, digestive, relaxants, joint, puppy.</td><td>All</td><td>Do not send broad SB traffic to a generic storefront home page.</td></tr>
+            <tr><td><span class="tag gold">NEXT</span></td><td>Build SBV concepts around education and trust</td><td>Better Dog needs a trust bridge to compete with review moats. Cesar authority can reduce the new-brand trust gap.</td><td>Skin Magic, Allergy Balance, Calm Confidence</td><td>Use video landing to condition page; compare NTB and branded search lift.</td></tr>
+            <tr><td><span class="tag">TEST</span></td><td>Forever Active long-tail joint campaign</td><td>Cosequin/Dasuquin are too large for a broad CPC fight, but Forever Active has 2.7x ROAS and can attack senior mobility and natural joint long-tail terms.</td><td>Forever Active</td><td>Avoid generic “dog joint supplement” broad until review count and CVR support it.</td></tr>
+            <tr><td><span class="tag">TEST</span></td><td>Relaxants category retargeting</td><td>Zesty/Purina/VetriScience dominate calming. Better Dog should retarget warm viewers before conquesting broad calming terms.</td><td>Calm Confidence</td><td>No broad scaling while ACOS remains ~190% in current snapshot.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Campaign Draft Structure</h2><p class="muted">Approval-gated structure to avoid duplicates and cannibalization.</p></div></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Conquest campaigns to draft</h3>
+          <h4>Itch / Allergy</h4><p><strong>SP Exact/Phrase:</strong> dog itch remedies, allergy supplement for dogs, dog allergy immune supplement. <strong>SD/PAT:</strong> Zesty Paws Allergy Immune, PetLab Allergy & Immune, Native Pet Itching Skin Relief.</p>
+          <h4>Digestive Remedies</h4><p><strong>SP Exact/Phrase:</strong> digestive remedy for dogs, fiber for dogs, dog gut health supplement. <strong>SD/PAT:</strong> PetLab probiotics, Purina FortiFlora, Zesty probiotic chews.</p>
+          <h4>Relaxants</h4><p><strong>SBV/SD retargeting first:</strong> calm dog supplement, dog relaxant, calming powder for dogs. Competitor PDPs only after retargeting reads.</p>
+        </div>
+        <div class="card">
+          <h3>Negative and cannibalization rules</h3>
+          <p><strong>Skin Magic owns:</strong> itch, skin magic, skin/coat symptom intent.</p>
+          <p><strong>Allergy Balance owns:</strong> allergy supplement for dogs, immune/allergy + digestive overlap.</p>
+          <p><strong>Inner Purity owns:</strong> digestive cleanse / natural dog wormer / gut-cleanse territory after PDP review.</p>
+          <p><strong>Happy-Go-Lucky Belly owns:</strong> fiber for dogs and gentle belly support.</p>
+          <p><strong>Forever Active owns:</strong> dog joint supplement long-tail, senior mobility, active dog joint support.</p>
+          <div class="callout warn"><strong>Do not build new campaigns until existing campaign coverage is checked.</strong> New targets should be added into existing owner campaigns when they already exist; create new campaigns only for missing layers like SD conquest or SBV condition pages.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>Source Appendix</h2><p class="muted">Where the data came from and what still needs validation.</p></div></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Used in this report</h3>
+          <p><strong>Amazon shelf data:</strong> logged-in Chrome search-result observations on July 13, 2026 for dog joint supplement, puppy immune supplement, dog calming supplement, and dog itch remedies supplement. Fields captured: visible rank, sponsor/organic placement, price, star rating, rating count, bought-in-past-month text, badges, and Subscribe & Save/coupon text when visible.</p>
+          <p><strong>Better Dog ad data:</strong> Better Dog Ads Dashboard data file with latest usable Amazon Ads rows through July 9, 2026. Current dashboard is marked stale because July 10+ report jobs remained pending at last check.</p>
+          <p><strong>PDP/hero keyword data:</strong> Better Dog PDP hero system in the dashboard, including hero keyword placement and live Amazon PDP comparison status.</p>
+        </div>
+        <div class="card">
+          <h3>Validation needed before execution</h3>
+          <p><strong>Helium10 search volume and rank:</strong> This report uses Amazon visible organic/sponsored rank signals. Helium10 proprietary keyword volume and keyword-rank fields should be imported into the dashboard loop once the extension/session export is available.</p>
+          <p><strong>AMC:</strong> AMC audience creation requires account-level AMC access and audience eligibility. The strategy is ready, but live deployment depends on available AMC instance and audience minimums.</p>
+          <p><strong>Amazon Ads writes:</strong> No bids, budgets, negatives, campaigns, or product category changes were executed by this report.</p>
+        </div>
+      </div>
+      <p class="footer">Prepared as a shareable HTML market analysis for Better Dog Supplements. Recommended next step: load the action items into the Better Dog Ads Dashboard approval queue, then create Sponsored Display and AMC drafts for Mark approval.</p>
+    </section>
+  </main>
+</body>
+</html>
